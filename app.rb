@@ -14,6 +14,19 @@ end
 
 moves = ["rock", "paper", "scissors"]
 
+get("/:player_move") do
+  @player_move = params.fetch("player_move")
+  @cpu_move = moves.sample
+  if @cpu_move == @player_move
+    @outcome = "tied"
+  elsif (@cpu_move == "paper" && @player_move == "rock") || (@cpu_move == "scissors" && @player_move == "paper") || (@cpu_move == "rock" && @player_move == "scissors")
+    @outcome = "lost"
+  else @outcome = "won"
+  end
+  erb(:game)
+end
+
+=begin
 get("/rock") do
   @player_move = "rock"
   @cpu_move = moves.sample
@@ -52,3 +65,4 @@ get("/scissors") do
   end
   erb(:game)
 end
+=end
